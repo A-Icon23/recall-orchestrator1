@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Recall Orchestrator Dashboard</title>
+</head>
+
+<body>
+  <div id="root"></div>
+  <!doctype html>
+  <html lang="en">
+
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Recall Orchestrator Dashboard</title>
+  </head>
+
+  <body>
+    <div id="root"></div>
+    <!doctype html>
+    <html lang="en">
+
+    <head>
+      <meta charset="UTF-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <title>Recall Orchestrator Dashboard</title>
+    </head>
+
+    <body>
+      <div id="root"></div>
+      <!doctype html>
+      <html lang="en">
+
+      <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Recall Orchestrator Dashboard</title>
+      </head>
+
+      <body>
+        <!doctype html>
+        <html lang="en">
+
+        <head>
+          <meta charset="UTF-8" />
+          <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+          <title>Recall Orchestrator Dashboard</title>
+        </head>
+
+        <body>
+          <div id="root"></div>
+          <!doctype html>
+          <html lang="en">
+
+          <head>
+            <meta charset="UTF-8" />
+            <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+            <title>Recall Orchestrator Dashboard</title>
+          </head>
+
+          <body>
+            <div id="root"></div>
+            <!doctype html>
+            <html lang="en">
+
+            <head>
+              <meta charset="UTF-8" />
+              <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+              <title>Recall Orchestrator Dashboard</title>
+            </head>
+
+            <body>
+              <div id="root"></div>
+              <!doctype html>
+              <html lang="en">
+
+              <head>
+                <meta charset="UTF-8" />
+                <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+                <title>Recall Orchestrator Dashboard</title>
+              </head>
+
+              <body>
+                <div id="root"></div>
+                <!-- Separate container for IBM Agent to prevent React conflict -->
+                <div id="ibm-agent-root"></div>
+
+                <!-- IBM WATSONX ORCHESTRATE AGENT EMBED -->
+                <script>
+                  window.wxOConfiguration = {
+                    orchestrationID: "41952880b5b0456a846a51f759bb421c_9ad1c718-6d64-4636-bbea-5eec927a0fd9",
+                    hostURL: "https://au-syd.watson-orchestrate.cloud.ibm.com",
+                    rootElementID: "ibm-agent-root",
+                    deploymentPlatform: "ibmcloud",
+                    crn: "crn:v1:bluemix:public:watsonx-orchestrate:au-syd:a/41952880b5b0456a846a51f759bb421c:9ad1c718-6d64-4636-bbea-5eec927a0fd9::",
+                    chatOptions: {
+                      agentId: "3c82401d-6b02-42a5-a052-8af4e3173d2e",
+                      agentEnvironmentId: "98a282d6-84a5-46c9-b63b-6eb9bc2c852f"
+                    }
+                  };
+                  setTimeout(function () {
+                    const script = document.createElement('script');
+                    script.src = `${window.wxOConfiguration.hostURL}/wxochat/wxoLoader.js?embed=true`;
+                    script.addEventListener('load', function () {
+                      wxoLoader.init();
+                    });
+                    document.head.appendChild(script);
+                  }, 0);
+                </script>
+                <script type="module" src="/src/main.jsx"></script>
+
+              </body>
+
+              </html>

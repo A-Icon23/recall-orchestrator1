@@ -1,0 +1,195 @@
+openapi: 3.0.0
+info:
+  title: Recall Orchestrator API
+  description: API for managing product recalls, finding customers, and processing refunds.
+  version: 1.0.0
+servers:
+  - url: https://recall-orchestrator.vercel.app
+    description: Vercel Production Server
+
+paths:
+  /api/findAffectedCustomers:
+    post:
+      summary: Find affected customers
+      description: Returns a list of customers who purchased a specific SKU and Batch.
+      operationId: findAffectedCustomers
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                sku:
+                  type: string
+                  example: "LET-123"
+                batch:
+                  type: string
+                  example: "BATCH-441"
+      responses:
+        '200':
+          description: List of customers
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  customers:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        name:
+                          type: string
+                        email:
+                          type: string
+                        purchaseId:
+                          type: string
+
+  /api/logRecallEvent:
+    post:
+      summary: Log a recall event
+      description: Records a new recall in the database.
+      operationId: logRecallEvent
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                recallId:
+                  type: string
+                sku:
+                  type: string
+                batch:
+                  type: string
+                reason:
+                  type: string
+      responses:
+        '200':
+          description: Recall logged successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+
+  /api/sendEmail:
+    post:
+      summary: Send an email
+      description: Sends an email via SendGrid.
+      operationId: sendEmail
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                to:
+                  type: string
+                subject:
+                  type: string
+                html:
+                  type: string
+      responses:
+        '200':
+          description: Email sent
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ok:
+                    type: boolean
+
+  /api/createPendingRefund:
+    post:
+      summary: Create a pending refund
+      description: Creates a refund record with 'pending' status.
+      operationId: createPendingRefund
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                purchaseId:
+                  type: string
+                paymentIntentId:
+                  type: string
+                amount:
+                  type: integer
+                  description: Amount in cents
+                customerId:
+                  type: string
+      responses:
+        '200':
+          description: Refund created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  refundId:
+                    type: string
+
+  /api/issueRefund:
+    post:
+      summary: Issue a refund (Approve)
+      description: Triggers the actual Stripe refund and updates status to 'issued'.
+      operationId: issueRefund
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                refundId:
+                  type: string
+      responses:
+        '200':
+          description: Refund issued
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ok:
+                    type: boolean
+                  stripeRefund:
+                    type: object
+
+  /api/checkRefundStatus:
+    post:
+      summary: Check Refund Status
+      description: Check if a refund is pending or issued.
+      operationId: checkRefundStatus
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                refundId:
+                  type: string
+      responses:
+        '200':
+          description: Refund status
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: "pending"
+                  amount:
+                    type: integer
+
